@@ -1,0 +1,89 @@
+﻿@model BusinessFeedback360.DTOModels.UserDetailsVM
+
+@{
+    ViewData["Title"] = "UserRegistration";
+}
+
+<h1>User Registration</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6" alignment="center">
+        <form asp-action="UserRegistration">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+                <label asp-for="ID" class="control-label"></label>
+                <input asp-for="ID" class="form-control" />
+                <span asp-validation-for="ID" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label"></label>
+                <input asp-for="UserID" class="form-control" />
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <input asp-for="EmployeeId" class="form-control" />
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmployeeName" class="control-label"></label>
+                <input asp-for="EmployeeName" class="form-control" />
+                <span asp-validation-for="EmployeeName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailID" class="control-label"></label>
+                <input asp-for="EmailID" class="form-control" />
+                <span asp-validation-for="EmailID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MobileNumber" class="control-label"></label>
+                <input asp-for="MobileNumber" class="form-control" />
+                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label"></label><br>
+                
+                <select id="RoleId" asp-for="RoleId" class="dropdown">
+                    @foreach (var data in ViewBag.RoleDetails)
+                        {
+                         <option value="@data.RoleId" class="dropdown-item">@data.RoleName</option>
+                        }
+                </select>
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DesignationId" class="control-label"></label><br>
+                <select id="RoleId" asp-for="DesignationId" class="dropdown">
+                    
+                    @foreach (var data in ViewBag.DesignationDetails)
+                    {
+                        <option value="@data.DesignationId" class="dropdown-item">@data.DesignationName</option>
+                    }
+                </select>
+                <span asp-validation-for="DesignationId" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="LastLoginDate" class="control-label"></label>
+                <input asp-for="LastLoginDate" class="form-control" />
+                <span asp-validation-for="LastLoginDate" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" formmethod="post" asp-action= "UserRegistration" asp-controller= "UserManagement" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
