@@ -9,17 +9,21 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using RepoFeedback360.CustomValidator;
 
 namespace RepoFeedback360.Model
 {
     [Table("UserDetails")]
     [Index(nameof(EmployeeId), IsUnique = true)]
+    [Index(nameof(UserID),IsUnique =true)]
     public class UserDetail
     {
         [Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int UserID { get; set; }
+
+        [Unique]
+        public string UserID { get; set; }
         public string? Password { get; set; }
 
         [Required(ErrorMessage ="Please Provide EmployeeId . This Field can't be null")]

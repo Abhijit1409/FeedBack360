@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepoFeedback360.Model;
 
@@ -11,9 +12,11 @@ using RepoFeedback360.Model;
 namespace RepoFeedback360.Migrations
 {
     [DbContext(typeof(UserDetailContext))]
-    partial class UserDetailContextModelSnapshot : ModelSnapshot
+    [Migration("20240516212510_tweleve")]
+    partial class tweleve
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

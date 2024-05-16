@@ -10,7 +10,7 @@ namespace BusinessFeedback360.DTOModels
     public class UserDetailsVM
     {
         //public int ID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public string? Password { get; set; }
 
         public string? EmployeeId { get; set; }

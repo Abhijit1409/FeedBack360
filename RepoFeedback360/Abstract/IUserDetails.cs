@@ -7,7 +7,7 @@ using RepoFeedback360.Model;
 
 namespace RepoFeedback360.Abstract
 {
-    public interface IUserDetails
+    public interface IUserDetails 
     {
         List<UserDetail> GetAllUser();
         
