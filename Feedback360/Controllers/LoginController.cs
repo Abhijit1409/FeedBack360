@@ -23,10 +23,12 @@ namespace Feedback360.Controllers
                 {
                     if (result_Bl?.isFirstLogin == null && result_Bl.isSuccesslOGIN)
                     {
+                        HttpContext.Session.SetString("_sessionUserid", result_Bl.User_ID);
                         return RedirectToAction("ChangePassword", "Password");
                     }
                     else if(result_Bl?.isFirstLogin != null && result_Bl.isSuccesslOGIN)
                     {
+                        HttpContext.Session.SetString("_sessionUserid", result_Bl.User_ID);
                         return RedirectToAction("Index", "Home");
                     }
                 }

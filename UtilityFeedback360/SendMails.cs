@@ -8,7 +8,7 @@ namespace UtilityFeedback360
             
         public static void SendEmail( string To_User, string subject, string msgBody)
         {
-            string From_User = "Provide your Email here";
+            string From_User = "1997abhijitsmp@gmail.com";
             try
             {
 
@@ -20,7 +20,7 @@ namespace UtilityFeedback360
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("Provide email which used for creating app password", "Provide app password here");
+                NetworkCredential NetworkCred = new NetworkCredential("", "please add app password");
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;

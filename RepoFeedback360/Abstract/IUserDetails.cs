@@ -12,5 +12,7 @@ namespace RepoFeedback360.Abstract
         List<UserDetail> GetAllUser();
         
         bool PersistUserDetails(UserDetail userDetail);
+
+        bool UpdateLastLogIn_Timestamp(UpdateLogInTimestamp objUpdateLoginTimestamp);
     }
 }

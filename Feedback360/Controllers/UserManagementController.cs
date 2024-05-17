@@ -31,11 +31,21 @@ namespace Feedback360.Controllers
         [HttpPost]
         public IActionResult UserRegistration(UserDetailsVM _userDetailsVM)
         {
+            bool Save_result = false;
+            try 
+            { 
             _objblusermanagement = new BLUserManagement();
             ViewBag.RoleDetails = _objblusermanagement.GetAllRoles();
             ViewBag.DesignationDetails = _objblusermanagement.GetAllDesignations();
             
-            _objblusermanagement.saveUserDetails(_userDetailsVM);
+             Save_result =_objblusermanagement.saveUserDetails(_userDetailsVM);
+            if (Save_result) ViewData["SaveStatus"] = "User Saved Successfully.";
+            else ViewData["FailedStatus"] = "Save User Failed";
+            }
+            catch (Exception ex) 
+            {
+                ViewData["FailedStatus"] = ex.Message;
+            }
             return View();
         }
     }
