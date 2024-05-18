@@ -22,7 +22,7 @@ namespace Feedback360.Controllers
 
         [HttpPost]
         public IActionResult ChangePassword(ChangePasswordVM objCPVM)
-        {
+        { 
             objCPVM.User_Id = HttpContext.Session.GetString("_sessionUserid");
             bool changepasswordStatus=_logInBl.ResetPassword_Bl(objCPVM);
             if (changepasswordStatus)

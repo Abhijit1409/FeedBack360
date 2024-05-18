@@ -44,7 +44,7 @@ namespace Feedback360.Controllers
             }
             catch (Exception ex) 
             {
-                ViewData["FailedStatus"] = ex.Message;
+                ViewData["FailedStatus"] = ex.Message; 
             }
             return View();
         }
