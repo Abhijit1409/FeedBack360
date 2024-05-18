@@ -1,4 +1,5 @@
 ﻿using BusinessFeedback360.DTOModels;
+using BusinessFeedback360.DTOModels.Password;
 using RepoFeedback360.Abstract;
 using RepoFeedback360.Model;
 using RepoFeedback360.Repository;
@@ -44,6 +45,19 @@ namespace BusinessFeedback360
         public bool PersistUserDetails(UserDetail userDetail)
         {
             throw new NotImplementedException();
+        }
+
+        public bool ResetPassword_Bl(ChangePasswordVM objChangePassword)
+        {
+            ResetPasswordModel resetPassword ;
+            if (objChangePassword != null) { resetPassword = new ResetPasswordModel() { User_Id = objChangePassword.User_Id, NewPassword = objChangePassword.NewPassword }; }
+            else resetPassword = new ResetPasswordModel();
+            return ResetPassword(resetPassword);
+        }
+
+        public bool ResetPassword(ResetPasswordModel resetPasswordModel)
+        {
+           return _userDetails.ResetPassword(resetPasswordModel);
         }
 
         public bool UpdateLastLogIn_Timestamp(UpdateLogInTimestamp objUpdateLoginTimestamp)

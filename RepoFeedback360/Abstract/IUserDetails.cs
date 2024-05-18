@@ -14,5 +14,7 @@ namespace RepoFeedback360.Abstract
         bool PersistUserDetails(UserDetail userDetail);
 
         bool UpdateLastLogIn_Timestamp(UpdateLogInTimestamp objUpdateLoginTimestamp);
+
+        bool ResetPassword(ResetPasswordModel resetPasswordModel);
     }
 }

@@ -52,6 +52,32 @@ namespace RepoFeedback360.Repository
             return status;
         }
 
+        public bool ResetPassword(ResetPasswordModel objResetPassword)
+        {
+            bool ResetStatusDl = false;
+            int bitReturn;
+            try
+            {
+                using (UserDetailContext _dbuserDetailsContext = new UserDetailContext())
+                {
+                   var userdetail = _dbuserDetailsContext._dbUserDetails.Where(x => x.UserID == objResetPassword.User_Id).FirstOrDefault();
+                    if (userdetail != null) 
+                    {
+                        userdetail.Password = objResetPassword.NewPassword;
+                        _dbuserDetailsContext._dbUserDetails.Update(userdetail);
+                        bitReturn= _dbuserDetailsContext.SaveChanges();
+                        if (bitReturn == 1) ResetStatusDl = true;
+                    }
+                    
+                }
+            }
+            catch (Exception Ex)
+            {
+                return ResetStatusDl;
+            }
+            return ResetStatusDl;
+        }
+
         public bool UpdateLastLogIn_Timestamp(UpdateLogInTimestamp objUpdateLoginTimestamp)
         {
             bool updateStatus= false;

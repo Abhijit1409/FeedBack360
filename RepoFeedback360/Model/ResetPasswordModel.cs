@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessFeedback360.DTOModels.Password
+namespace RepoFeedback360.Model
 {
-    public class ChangePasswordVM
+    public class ResetPasswordModel
     {
         public string? User_Id { get; set; }
-        [DisplayName("Old Password")]
-        [Required(ErrorMessage ="Please Provide Your Old Password")]
-        public string OldPassword { get; set; }
 
         [DisplayName("New Password")]
         [Required(ErrorMessage = "Please Provide Your New Password")]
         public string NewPassword { get; set; }
-
     }
 }

@@ -20,7 +20,7 @@ namespace UtilityFeedback360
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("", "please add app password");
+                NetworkCredential NetworkCred = new NetworkCredential("1997abhijitsmp@gmail.com", "");
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
