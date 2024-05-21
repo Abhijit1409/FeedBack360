@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepoFeedback360.Model;
 
@@ -11,9 +12,11 @@ using RepoFeedback360.Model;
 namespace RepoFeedback360.Migrations
 {
     [DbContext(typeof(UserDetailContext))]
-    partial class UserDetailContextModelSnapshot : ModelSnapshot
+    [Migration("20240520220006_addnewtable_otp2")]
+    partial class addnewtable_otp2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +29,7 @@ namespace RepoFeedback360.Migrations
                 {
                     b.Property<string>("User_ID_ForOTP")
                         .HasColumnType("nvarchar(450)")
-                        .HasColumnName("User_Id_OTP");
+                        .HasColumnName("UserId");
 
                     b.Property<int>("OTP")
                         .HasColumnType("int");

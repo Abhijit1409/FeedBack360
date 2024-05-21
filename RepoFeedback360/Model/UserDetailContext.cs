@@ -16,6 +16,7 @@ namespace RepoFeedback360.Model
         public DbSet<UserDetail> _dbUserDetails { get; set; }
         public DbSet<UserRoleDetails> _dbRoleDetails { get; set; }
         public DbSet<UserDesignationDetails> _dbDesignationDetails { get; set; }
+        public DbSet<DL_OTPModel> _otpData { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

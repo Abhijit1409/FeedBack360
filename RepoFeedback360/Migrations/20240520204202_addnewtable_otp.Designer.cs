@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepoFeedback360.Model;
 
@@ -11,9 +12,11 @@ using RepoFeedback360.Model;
 namespace RepoFeedback360.Migrations
 {
     [DbContext(typeof(UserDetailContext))]
-    partial class UserDetailContextModelSnapshot : ModelSnapshot
+    [Migration("20240520204202_addnewtable_otp")]
+    partial class addnewtable_otp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,9 +27,9 @@ namespace RepoFeedback360.Migrations
 
             modelBuilder.Entity("RepoFeedback360.Model.DL_OTPModel", b =>
                 {
-                    b.Property<string>("User_ID_ForOTP")
+                    b.Property<string>("User_ID")
                         .HasColumnType("nvarchar(450)")
-                        .HasColumnName("User_Id_OTP");
+                        .HasColumnName("UserId");
 
                     b.Property<int>("OTP")
                         .HasColumnType("int");
@@ -34,7 +37,7 @@ namespace RepoFeedback360.Migrations
                     b.Property<DateTime>("OTP_SEND_TIMESTAMP")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("User_ID_ForOTP");
+                    b.HasKey("User_ID");
 
                     b.ToTable("tbl_OTP_Details");
                 });
