@@ -17,6 +17,9 @@ namespace RepoFeedback360.Model
         public DbSet<UserRoleDetails> _dbRoleDetails { get; set; }
         public DbSet<UserDesignationDetails> _dbDesignationDetails { get; set; }
         public DbSet<DL_OTPModel> _otpData { get; set; }
+        public DbSet<FeedBackCatagoryML> _FeedBackCatagoryML { get; set; }
+
+        public DbSet<FeedBackSchedulerML> _dtfeedBackScheduler { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

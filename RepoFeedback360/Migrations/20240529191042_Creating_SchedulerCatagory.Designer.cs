@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepoFeedback360.Model;
 
@@ -11,9 +12,11 @@ using RepoFeedback360.Model;
 namespace RepoFeedback360.Migrations
 {
     [DbContext(typeof(UserDetailContext))]
-    partial class UserDetailContextModelSnapshot : ModelSnapshot
+    [Migration("20240529191042_Creating_SchedulerCatagory")]
+    partial class Creating_SchedulerCatagory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,36 +61,6 @@ namespace RepoFeedback360.Migrations
                     b.HasKey("Catagory_ID");
 
                     b.ToTable("tbl_FeedbackCatagory");
-                });
-
-            modelBuilder.Entity("RepoFeedback360.Model.FeedBackSchedulerML", b =>
-                {
-                    b.Property<int>("FeedSchedulerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedSchedulerID"));
-
-                    b.Property<string>("By_EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FeebBack_CatagoryID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("To_EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FeedSchedulerID");
-
-                    b.ToTable("tbl_FeedBackScheduleDetails");
                 });
 
             modelBuilder.Entity("RepoFeedback360.Model.UserDesignationDetails", b =>

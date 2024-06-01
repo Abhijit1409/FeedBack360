@@ -1,0 +1,82 @@
+﻿@model BusinessFeedback360.DTOModels.FeedBackScheduleDetails.FeedBackScheduleDetails
+
+@{
+    ViewData["Title"] = "FeedBackSchedule";
+}
+
+<h1 class="bg-info bg-gradient">FeedBack Schedule</h1>
+
+<hr />
+<div>
+    <span class="bg-danger">@ViewData["Failed"]</span>
+    <span class="bg-success">@ViewData["Success"]</span>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="FeedBackSchedule">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label"></label>
+                <select asp-for="EmployeeId" class="form-control">
+                    <option> Select Employee</option>
+                    @{
+                        if (ViewBag.GetALLUser != null)
+                        {
+                            foreach (var data in ViewBag.GetALLUser)
+                            {
+                             <option value="@data.EmployeeId">@data.EmployeeName</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeedbackCatagory" class="control-label"></label>
+                    <select asp-for= "FeedbackCatagory" class="form-control">
+                        <option>Select Catagory Discription</option>
+                        @foreach (var data in ViewBag.FeedBackCatagories)
+                        { 
+                          <option value="@data.Catagory_ID">@data.Catagory_Description</option>
+                        }
+                    </Select>
+                    
+                
+                <span asp-validation-for="FeedbackCatagory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FeedBackProvider" class="control-label"></label>
+                <select asp-for="FeedBackProvider" class="form-control">
+                    <option> Select Employee</option>
+                    @{
+                        if (ViewBag.GetALLUser != null)
+                        {
+                            foreach (var data in ViewBag.GetALLUser)
+                            {
+                             <option value="@data.EmployeeId">@data.EmployeeName</option>
+                            }
+                        }
+                    }
+                </select>
+                @* <input asp-for="FeedBackProvider" class="form-control" /> *@
+                <span asp-validation-for="FeedBackProvider" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Lastdate" class="control-label"></label>
+                <input asp-for="Lastdate" class="form-control" />
+                <span asp-validation-for="Lastdate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Home" asp-controller="Home" >Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
