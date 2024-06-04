@@ -9,7 +9,7 @@ using RepoFeedback360.Model;
 
 namespace RepoFeedback360.Repository.FeedBackScheduler
 {
-    public class FeedBackSchedulerDL : IFeedbackScheduler,IDisposable
+    public class FeedBackSchedulerDL : IFeedbackScheduler, IDisposable
     {
         private UserDetailContext _userDetailContext = null;
         private bool disposedValue;
@@ -17,16 +17,16 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
         public List<FeedBackCatagoryML> GetFeedbackCatagories()
         {
             List<FeedBackCatagoryML> lstFeedBackCatagories = null;
-            try 
+            try
             {
                 using (_userDetailContext = new UserDetailContext())
                 {
                     lstFeedBackCatagories = _userDetailContext._FeedBackCatagoryML.ToList();
                 }
-            } 
-            catch(Exception ex) 
-            { 
-            
+            }
+            catch (Exception ex)
+            {
+
             }
 
             return lstFeedBackCatagories;
@@ -34,7 +34,7 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
 
         public bool SetFeedbackSchedulers(FeedBackSchedulerML objFeedBackScheduler)
         {
-            bool resultBit= false;
+            bool resultBit = false;
             try
             {
                 using (_userDetailContext = new UserDetailContext())
@@ -43,15 +43,15 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
                     {
                         _userDetailContext._dtfeedBackScheduler.Add(objFeedBackScheduler);
                         int resultInt = _userDetailContext.SaveChanges();
-                        resultBit = resultInt == 1 ? true : false; 
+                        resultBit = resultInt == 1 ? true : false;
                     }
 
-                    
+
                 }
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
-               
+
             }
             return resultBit;
         }
@@ -92,13 +92,13 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
             {
                 using (_userDetailContext = new UserDetailContext())
                 {
-                    var alluser=_userDetailContext._dbUserDetails.ToList();
-                    var feedbackScheduleDetails=_userDetailContext._dtfeedBackScheduler.ToList();
+                    var alluser = _userDetailContext._dbUserDetails.ToList();
+                    var feedbackScheduleDetails = _userDetailContext._dtfeedBackScheduler.ToList();
                     var allDesignations = _userDetailContext._dbDesignationDetails.ToList();
                     var lstScheduledCandidate = (from userData in alluser
                                                  join scheduleddata in feedbackScheduleDetails on userData.EmployeeId equals scheduleddata.To_EmployeeId
                                                  join Designations in allDesignations on userData.DesignationId equals Designations.DesignationId
-                                                 where scheduleddata.IsActive = true 
+                                                 where scheduleddata.IsActive == true
                                                  select new
                                                  {
                                                      userData.UserID,
@@ -111,17 +111,18 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
                     lstScheduledCandidates = new List<ScheduledCandidatesDL>();
                     foreach (var data in lstScheduledCandidate)
                     {
-                        lstScheduledCandidates.Add(new ScheduledCandidatesDL { 
-                          Candidate_UserName=data.UserID,
-                          EmployeeId_By=data.By_EmployeeId.ToString(),
-                          EmployeeId_To=data.EmployeeId.ToString(),
-                          Employee_Name=data.EmployeeName,
-                          Designation_Id=data.DesignationId,
+                        lstScheduledCandidates.Add(new ScheduledCandidatesDL
+                        {
+                            Candidate_UserName = data.UserID,
+                            EmployeeId_By = data.By_EmployeeId.ToString(),
+                            EmployeeId_To = data.EmployeeId.ToString(),
+                            Employee_Name = data.EmployeeName,
+                            Designation_Id = data.DesignationId,
 
                         });
 
                     }
-                    
+
                     return lstScheduledCandidates;
                 }
             }
@@ -130,6 +131,47 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
 
             }
             return lstScheduledCandidates;
+        }
+
+        public List<FeedBackQuestions> GetAllQuestions_ByDesignation(string inputData_Designation)
+        {
+            List<FeedBackQuestions> lstQuestions = null;
+            using (_userDetailContext = new UserDetailContext())
+            {
+                lstQuestions = _userDetailContext._dbFeedbackQuestions.Where(x => x.DESIGNATION_ID == Convert.ToInt16(inputData_Designation)).Distinct().ToList();
+            }
+            return lstQuestions;
+        }
+
+        public bool PersistFeedback(List<FEEDBACKRATINGS> lstFeedbackRatings)
+        {
+            bool result = false;
+            try
+            {
+                var empid = lstFeedbackRatings != null && lstFeedbackRatings.Any(x => x.TOID_EmplyeeId != null) ? lstFeedbackRatings?.Where(x => x.TOID_EmplyeeId != null).FirstOrDefault(): null ;
+                string Empto_Id = empid?.TOID_EmplyeeId;
+                using (_userDetailContext = new UserDetailContext())
+                {
+                    if (lstFeedbackRatings != null && lstFeedbackRatings.Count != 0)
+                    {
+                        foreach (FEEDBACKRATINGS lstFeedbackRating in lstFeedbackRatings)
+                        {
+                            _userDetailContext._dbFEEDBACKRATINGS.Add(lstFeedbackRating);
+                        }
+                        int bitResult = _userDetailContext.SaveChanges();
+                        result = bitResult >= 1 ? true : false;
+                    }
+                    if (result)
+                    {
+                        var data = _userDetailContext._dtfeedBackScheduler.Where(x => x.To_EmployeeId.Equals(Empto_Id)).FirstOrDefault();
+                        if (data != null) { data.IsActive = false; }
+                        _userDetailContext._dtfeedBackScheduler.Update(data);
+                        _userDetailContext.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception Ex) { }
+            return result;
         }
     }
 }

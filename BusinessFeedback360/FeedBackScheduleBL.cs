@@ -1,4 +1,5 @@
-﻿using BusinessFeedback360.DTOModels.FeedBackScheduleDetails;
+﻿using BusinessFeedback360.DTOModels;
+using BusinessFeedback360.DTOModels.FeedBackScheduleDetails;
 using RepoFeedback360.Abstract;
 using RepoFeedback360.Model;
 using RepoFeedback360.Repository;
@@ -71,6 +72,18 @@ namespace BusinessFeedback360
             List<ScheduledCandidatesDL> dataLst=_dlFeedBackScheduler.GetScheduledCandidateList();
             
             return dataLst;
+        }
+        public List<FeedBackQuestions> GetAllQuestions(InputData inputData)
+        {
+            List<FeedBackQuestions> lstQuestions = null;
+            _dlFeedBackScheduler = new FeedBackSchedulerDL();
+            lstQuestions=_dlFeedBackScheduler.GetAllQuestions_ByDesignation(inputData.DesignationId.ToString());
+            return lstQuestions;
+        }
+        public bool SaveFeedBAck(List<FEEDBACKRATINGS> lstFeedbackRatings)
+        {
+            _dlFeedBackScheduler = new FeedBackSchedulerDL();
+            return _dlFeedBackScheduler.PersistFeedback(lstFeedbackRatings);
         }
     }
 }

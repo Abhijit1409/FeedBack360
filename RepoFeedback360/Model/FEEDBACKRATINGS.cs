@@ -25,8 +25,13 @@ namespace RepoFeedback360.Model
         public int Ratings { get; set; }
 
         public DateTime CreatedDate { get; set; }
-
-
+       // public List<Questions> Questions { get; set; }
 
     }
+    //public class Questions
+    //{
+    //    [Key]
+    //    public int Q_ID { get; set; }
+    //    public int Ratings { get; set; }
+    //}
 }

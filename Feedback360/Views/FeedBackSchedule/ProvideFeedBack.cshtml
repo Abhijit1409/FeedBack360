@@ -1,0 +1,74 @@
+﻿@model RepoFeedback360.Model.FEEDBACKRATINGS
+
+@{
+    ViewData["Title"] = "ProvideFeedBack";
+}
+
+<h1>Provide FeedBack</h1>
+
+<h4>RATINGS</h4>
+<hr />
+<span style="color:red">
+    @if (ViewData["Error"] != null) { @ViewData["Error"]}
+</span>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ProvideFeedBack" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="table" style="align-content:center">
+                <table class="table">
+                    <thead>
+                    <Th>
+                    <td>FeedBack Questions</td></Th>
+                    <Th>
+                    <td>Rating</td></Th>
+                    </thead>
+                    <tbody>
+                        @{
+                            if (ViewBag.AllQuestions != null)
+                            {
+                                int count = 1;
+                                foreach (var Data in ViewBag.AllQuestions)
+                                {
+                                    <tr>
+                                        <td><label style="width:auto">@Data.Question_LongName</label></td>
+                                        <td><input type="hidden" asp-for="Q_ID" value="@Data.Question_Id" name="Q_ID_@count.ToString()"></input></td>
+                                        <td class="form-control">
+                                            <select asp-for="Ratings" name="Rating_@count.ToString()" class="form-control">
+                                                <option style="width:auto">- Select -</option>
+                                                <option style="width:auto" value="1">1</option>
+                                                <option style="width:auto" value="2">2</option>
+                                                <option style="width:auto" value="3">3</option>
+                                                <option style="width:auto" value="4">4</option>
+                                                <option style="width:auto" value="5">5</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    count++;
+                                }
+
+                            }
+
+                        }
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
