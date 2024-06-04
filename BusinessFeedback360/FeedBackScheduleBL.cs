@@ -65,6 +65,13 @@ namespace BusinessFeedback360
          return lst;
          
         }
+        public List<ScheduledCandidatesDL> Candidate_List() 
+        {
+            _dlFeedBackScheduler = new FeedBackSchedulerDL();
+            List<ScheduledCandidatesDL> dataLst=_dlFeedBackScheduler.GetScheduledCandidateList();
+            
+            return dataLst;
+        }
     }
 }
 

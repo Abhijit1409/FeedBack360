@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -82,6 +83,53 @@ namespace RepoFeedback360.Repository.FeedBackScheduler
             // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
+        }
+
+        public List<ScheduledCandidatesDL> GetScheduledCandidateList()
+        {
+            List<ScheduledCandidatesDL> lstScheduledCandidates = null;
+            try
+            {
+                using (_userDetailContext = new UserDetailContext())
+                {
+                    var alluser=_userDetailContext._dbUserDetails.ToList();
+                    var feedbackScheduleDetails=_userDetailContext._dtfeedBackScheduler.ToList();
+                    var allDesignations = _userDetailContext._dbDesignationDetails.ToList();
+                    var lstScheduledCandidate = (from userData in alluser
+                                                 join scheduleddata in feedbackScheduleDetails on userData.EmployeeId equals scheduleddata.To_EmployeeId
+                                                 join Designations in allDesignations on userData.DesignationId equals Designations.DesignationId
+                                                 where scheduleddata.IsActive = true 
+                                                 select new
+                                                 {
+                                                     userData.UserID,
+                                                     userData.EmployeeName,
+                                                     userData.EmployeeId,
+                                                     scheduleddata.By_EmployeeId,
+                                                     Designations.DesignationId
+                                                 }).ToList();
+
+                    lstScheduledCandidates = new List<ScheduledCandidatesDL>();
+                    foreach (var data in lstScheduledCandidate)
+                    {
+                        lstScheduledCandidates.Add(new ScheduledCandidatesDL { 
+                          Candidate_UserName=data.UserID,
+                          EmployeeId_By=data.By_EmployeeId.ToString(),
+                          EmployeeId_To=data.EmployeeId.ToString(),
+                          Employee_Name=data.EmployeeName,
+                          Designation_Id=data.DesignationId,
+
+                        });
+
+                    }
+                    
+                    return lstScheduledCandidates;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lstScheduledCandidates;
         }
     }
 }

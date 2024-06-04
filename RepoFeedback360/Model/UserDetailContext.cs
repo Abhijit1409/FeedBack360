@@ -20,6 +20,9 @@ namespace RepoFeedback360.Model
         public DbSet<FeedBackCatagoryML> _FeedBackCatagoryML { get; set; }
 
         public DbSet<FeedBackSchedulerML> _dtfeedBackScheduler { get; set; }
+
+        public DbSet<FeedBackQuestions> _dbFeedbackQuestions { get; set; }
+        public DbSet<FEEDBACKRATINGS> _dbFEEDBACKRATINGS { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

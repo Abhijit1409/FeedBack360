@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepoFeedback360.Model;
 
@@ -11,9 +12,11 @@ using RepoFeedback360.Model;
 namespace RepoFeedback360.Migrations
 {
     [DbContext(typeof(UserDetailContext))]
-    partial class UserDetailContextModelSnapshot : ModelSnapshot
+    [Migration("20240602131657_feedbackQuestionsTable")]
+    partial class feedbackQuestionsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,38 +40,6 @@ namespace RepoFeedback360.Migrations
                     b.HasKey("User_ID_ForOTP");
 
                     b.ToTable("tbl_OTP_Details");
-                });
-
-            modelBuilder.Entity("RepoFeedback360.Model.FEEDBACKRATINGS", b =>
-                {
-                    b.Property<int>("FeedbackRatings_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeedbackRatings_ID"));
-
-                    b.Property<string>("BYID_EmplyeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("BY_ID");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Q_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Ratings")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TOID_EmplyeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("To_ID");
-
-                    b.HasKey("FeedbackRatings_ID");
-
-                    b.ToTable("TBL_FEEDBACKRATINGS");
                 });
 
             modelBuilder.Entity("RepoFeedback360.Model.FeedBackCatagoryML", b =>
